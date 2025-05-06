@@ -1,0 +1,99 @@
+<html>
+<head>
+    <link rel="stylesheet" href="CSS/globalstyle.css">
+    <link rel="stylesheet" href="CSS/gamestyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Cardo:ital,wght@0,400;0,700;1,400&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="navbar">
+        <h1>Python Games</h1>
+        <ul>
+            <li class="navbutton"><a href="INDEX.HTML">Home</a></li>
+            <li class="navbutton"><a href="games.html">Games</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">Contact</button>
+                        <div class="dropdown-content">
+                            <a href="https://www.instagram.com/jag.pz/">Jg.Pz</a>
+                        </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="body">
+        <br><br><br><br><br><br><br><br><br>
+        <h1>The Games:</h1><br><br>
+            <!-- caroucarou -->
+    <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+        <div class="gallery-cell" onclick="openPopup(
+        `Tic-Tac-Toe`, 'game1.py', 'hello_world.py')"></div>
+    
+        <div class="gallery-cell" onclick="openPopup(
+        `Tetris`, 'game2.py', 'count_loop.py')"></div>
+    
+        <div class="gallery-cell" onclick="openPopup(
+        `Pong`, 'game3.py', 'adder.py')"></div>
+    </div>
+    <!-- popup -->
+    <div id="popup" class="popup-overlay" onclick="closePopup(event)">
+        <div class="popup-box" onclick="event.stopPropagation()">
+        <pre><code id="popup-content"></code></pre>
+        <div class="popup-buttons">
+            <button id="playButton">See Code</button>
+        </div>
+        <button class="close-btn" onclick="closePopup(event)">×</button>
+        </div>
+    </div>
+    <br><br><br><br>
+    <!-- java -->
+    <script>
+        let currentCode = "";
+        let currentFilename = "code.py";
+        let currentGameUrl = "#";
+        
+        function openPopup(code, gameUrl, filename) {
+            currentCode = code;
+            currentFilename = filename;
+            currentGameUrl = gameUrl;
+        
+            document.getElementById("popup-content").textContent = code;
+            document.getElementById("popup").style.display = "flex";
+        
+            const playButton = document.getElementById("playButton");
+            playButton.onclick = () => {
+                window.location.href = gameUrl;
+            };
+        }
+        
+        function downloadCode() {
+            const blob = new Blob([currentCode], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+        
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = currentFilename;
+            a.click();
+        
+            URL.revokeObjectURL(url);
+        }
+        
+        function closePopup(event) {
+            if (event.target.id === "popup" || event.target.tagName === "BUTTON" && event.target.classList.contains("close-btn")) {
+                document.getElementById("popup").style.display = "none";
+            }
+        }
+        </script>
+        <script>
+            var elem = document.querySelector('.gallery');
+            var flkty = new Flickity(elem, {
+                wrapAround: true
+            });
+        </script>  
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</body>
+</html>
